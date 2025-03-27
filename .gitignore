@@ -1,14 +1,29 @@
-# Ignore dependencies
-node_modules/
+# dependencies
+/node_modules
 
-# Ignore IntelliJ files
-.idea/
+# production build
+/build
 
-# Ignore build output
-dist/
-build/
-
-# System files
+# misc
 .DS_Store
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
 
-.idea/vcs.xml
+# logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# IDEs
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+# OS
+Thumbs.db
