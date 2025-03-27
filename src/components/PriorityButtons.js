@@ -5,9 +5,7 @@ function PriorityButtons({ selectedPriority, onSelect }) {
 
   return (
     <div className="mb-2 mt-2">
-      <label style={{ marginRight: "10px", color: "white" }}>
-        Priority:
-      </label>
+      <label style={{ marginRight: "10px", color: "white" }}>Priority:</label>
       {levels.map((level) => (
         <button
           key={level}

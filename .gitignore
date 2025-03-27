@@ -35,3 +35,4 @@ src/setupTests.js
 
 # (Optional) Ignore package-lock.json — only if you don’t want to lock dependencies
 package-lock.json
+package.json

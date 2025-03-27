@@ -12,7 +12,7 @@ function TaskForm({
   onSubmit,
 }) {
   return (
-    <div className="row mb-4">
+    <div className="row justify-content-center mb-4">
       <div className="col-md-6">
         <input
           type="text"
@@ -20,20 +20,24 @@ function TaskForm({
           value={newTask}
           onChange={(e) => setNewTask(e.target.value)}
           placeholder="Enter task title"
+          maxLength={255}
         />
         {error && <div className="text-danger mb-2">{error}</div>}
-        <input
-          type="text"
-          className="form-control"
-          value={newDescription}
-          onChange={(e) => setNewDescription(e.target.value)}
-          placeholder="Enter task description"
-        />
+        <div className="mb-2">
+          <input
+            type="text"
+            className="form-control"
+            value={newDescription}
+            onChange={(e) => setNewDescription(e.target.value)}
+            placeholder="Enter task description"
+            maxLength={500}
+          />
+          <small className="text-light">
+            {500 - newDescription.length} characters remaining
+          </small>
+        </div>
 
-<PriorityButtons
-  selectedPriority={priority}
-  onSelect={setPriority}
-/>
+        <PriorityButtons selectedPriority={priority} onSelect={setPriority} />
       </div>
       <div className="col-md-2">
         <button

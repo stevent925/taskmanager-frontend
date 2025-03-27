@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
+import 'bootstrap-icons/font/bootstrap-icons.css';
 import {
   getAllTasks,
-  getTaskById,
+  getTasksByTitle,
   createTask,
   deleteTask,
   updateTaskStatus,
@@ -13,8 +14,9 @@ import TaskSearch from "./components/TaskSearch";
 
 function App() {
   const [tasks, setTasks] = useState([]);
+  const [matchedTasks, setMatchedTasks] = useState([]);
   const [newTask, setNewTask] = useState("");
-  const [taskId, setTaskId] = useState("");
+  const [taskTitle, setTaskTitle] = useState("");
   const [task, setTask] = useState(null);
   const [newDescription, setNewDescription] = useState("");
   const [priority, setPriority] = useState("MEDIUM");
@@ -54,19 +56,23 @@ function App() {
     fetchTasks();
   };
 
-  const handleFetchTaskById = async () => {
-    try {
-      const response = await getTaskById(taskId);
-      setTask(response.data);
-    } catch (error) {
-      setTask(null);
-      alert("Task not found");
-    }
-  };
+const handleSearchByTitle = async () => {
+  const title = taskTitle.trim();
+  if (!title) return;
 
-  const handleStatusUpdate = async (taskId, status) => {
+  try {
+    const response = await getTasksByTitle(title);
+    setMatchedTasks(response.data);
+    setTask(null);
+  } catch (error) {
+    setMatchedTasks([]);
+    alert("No matching tasks found.");
+  }
+};
+
+  const handleStatusUpdate = async (taskTitle, status) => {
     try {
-      await updateTaskStatus(taskId, status);
+      await updateTaskStatus(taskTitle, status);
       fetchTasks();
     } catch (error) {
       setError("Failed to update task status.");
@@ -86,12 +92,42 @@ function App() {
           Task Manager
         </h1>
 
-        {/* Search Task by ID */}
+        {/* Search Task by Title */}
         <TaskSearch
-          taskId={taskId}
-          setTaskId={setTaskId}
-          onFetch={handleFetchTaskById}
+          taskTitle={taskTitle}
+          setTaskTitle={setTaskTitle}
+          onFetch={handleSearchByTitle}
         />
+{matchedTasks.length > 0 && (
+  <div className="alert alert-info position-relative">
+<button
+  className="btn position-absolute top-0 end-0 m-2 p-1"
+  style={{
+    backgroundColor: "transparent",
+    border: "none",
+    color: "#000",
+    fontSize: "1.25rem",
+    lineHeight: "1",
+  }}
+  onClick={() => setMatchedTasks([])}
+  aria-label="Clear results"
+>
+  <i className="bi bi-x-lg"></i>
+</button>
+
+    <strong>Matching Tasks:</strong>
+    <ul className="mt-2">
+      {matchedTasks.map((t) => (
+        <li key={t.id}>
+          <strong>ID:</strong> {t.id} <br />
+          <strong>Title:</strong> {t.title} <br />
+          <strong>Description:</strong> {t.description}
+          <hr />
+        </li>
+      ))}
+    </ul>
+  </div>
+)}
 
         {/* Task Details */}
         {task && (
