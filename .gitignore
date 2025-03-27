@@ -28,12 +28,10 @@ yarn-error.log*
 # OS
 Thumbs.db
 
-# Ignore test files
+# Ignore boilerplate/test files
 src/App.test.js
-src/setupTests.js
-
-# Ignore CRA boilerplate
 src/reportWebVitals.js
+src/setupTests.js
 
 # (Optional) Ignore package-lock.json — only if you don’t want to lock dependencies
 package-lock.json
