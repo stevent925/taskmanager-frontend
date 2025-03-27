@@ -1,0 +1,12 @@
+# Ignore dependencies
+node_modules/
+
+# Ignore IntelliJ files
+.idea/
+
+# Ignore build output
+dist/
+build/
+
+# System files
+.DS_Store
